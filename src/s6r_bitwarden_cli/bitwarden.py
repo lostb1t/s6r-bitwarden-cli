@@ -10,15 +10,21 @@ _logger.addHandler(c_handler)
 
 class BitwardenCli:
 
-    def __init__(self, username='', password='', api_client_id='', api_client_secret='', verbose=False):
+    def __init__(self, username='', password='', api_client_id='', api_client_secret='', host=None, verbose=False):
         self.username = username or os.environ.get('BITWARDEN_USERNAME', '')
         self.password = password or os.environ.get('BITWARDEN_PASSWORD', '')
         self.api_client_id = api_client_id or os.environ.get('BITWARDEN_API_CLIENT_ID', '')
         self.api_client_secret = api_client_secret or os.environ.get('BITWARDEN_API_CLIENT_SECRET', '')
         self.session_key = os.environ.get('BITWARDEN_SESSION_KEY', '')
         self.verbose = verbose
+        if host:
+            self.set_host()
 
         self.set_logger()
+    
+    def set_host(self, host):
+        args = ['config', 'server', host]
+        child = self.spawn(args)
 
     def spawn(self, args):
         _logger.debug('SPAWN bw %s' % ' '.join(args))
