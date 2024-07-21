@@ -18,7 +18,7 @@ class BitwardenCli:
         self.session_key = os.environ.get('BITWARDEN_SESSION_KEY', '')
         self.verbose = verbose
         if host:
-            self.set_host()
+            self.set_host(host)
 
         self.set_logger()
     
