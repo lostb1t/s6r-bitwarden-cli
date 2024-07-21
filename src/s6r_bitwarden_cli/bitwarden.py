@@ -26,6 +26,10 @@ class BitwardenCli:
         args = ['config', 'server', host]
         child = self.spawn(args)
 
+    def sync(self):
+        args = ['sync']
+        child = self.spawn(args)
+
     def spawn(self, args):
         _logger.debug('SPAWN bw %s' % ' '.join(args))
         return pexpect.spawn('bw', args, encoding='utf-8')
